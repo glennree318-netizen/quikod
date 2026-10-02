@@ -1,0 +1,497 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free QR Code Generator - WiFi, vCard, Links | Quikod</title>
+    <meta name="description" content="Free QR code generator for links, WiFi, vCards, SMS, email and phone. Static, private, client-side - scans never tracked, codes never expire. Custom colors, logo, SVG/PNG export. No signup.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://quikod.vercel.app/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Quikod">
+    <meta property="og:title" content="Quikod - Free QR Code Generator">
+    <meta property="og:description" content="Static, private QR codes for WiFi, links, vCards and more. No signup, no tracking, codes never expire.">
+    <meta property="og:url" content="https://quikod.vercel.app/">
+    <meta property="og:image" content="https://quikod.vercel.app/icon.svg">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Quikod - Free QR Code Generator">
+    <meta name="twitter:description" content="Static, private QR codes for WiFi, links, vCards and more. No signup, no tracking.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%230d1117'/><g fill='none' stroke='%2358a6ff' stroke-width='6'><rect x='20' y='20' width='24' height='24' rx='4'/><rect x='56' y='20' width='24' height='24' rx='4'/><rect x='20' y='56' width='24' height='24' rx='4'/></g><rect x='56' y='56' width='11' height='11' fill='%2358a6ff'/><rect x='69' y='69' width='11' height='11' fill='%2358a6ff'/></svg>">
+    <meta name="theme-color" content="#0d1117">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon.svg">
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="753da090-5ac6-475f-9ab5-ca0be8eb1316"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Quikod",
+      "url": "https://quikod.vercel.app/",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "featureList": "QR code generator, WiFi QR code, vCard QR code, link QR code, SMS QR code, QR with logo, QR SVG PNG export, bulk QR codes"
+    }
+    </script>
+    <style>
+        :root{--bg:#0d1117;--bg2:#161b22;--bg3:#21262d;--text:#c9d1d9;--text2:#8b949e;--accent:#58a6ff;--accent2:#79b8ff;--success:#3fb950;--warning:#d29922;--error:#f85149;--border:#30363d;--shadow:rgba(0,0,0,.3);--radius:8px;--transition:.2s ease}
+        [data-theme=light]{--bg:#fff;--bg2:#f6f8fa;--bg3:#eaeef2;--text:#1f2328;--text2:#59636e;--accent:#0969da;--accent2:#0550ae;--success:#1a7f37;--warning:#9a6700;--error:#d1242f;--border:#d1d9e0;--shadow:rgba(0,0,0,.1)}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
+        .header{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:var(--bg2);border-bottom:1px solid var(--border);flex-shrink:0}
+        .logo{margin:0;font-size:18px;font-weight:700}
+        .logo a{color:var(--text);text-decoration:none;display:flex;align-items:center;gap:8px}
+        .logo a span{color:var(--accent)}
+        .logo svg{width:22px;height:22px;color:var(--accent)}
+        .header-actions{display:flex;gap:8px;align-items:center}
+        .btn{padding:8px 14px;border:1px solid var(--border);border-radius:10px;background:var(--bg3);color:var(--text);cursor:pointer;font-size:13px;font-weight:600;transition:all var(--transition);display:inline-flex;align-items:center;gap:7px;line-height:1.2}
+        .btn:hover{background:var(--border);border-color:var(--text2)}
+        .btn:active{transform:scale(.98)}
+        .btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+        .btn svg{width:15px;height:15px;flex-shrink:0}
+        .btn-primary{background:linear-gradient(180deg,var(--accent2),var(--accent));color:#fff;border-color:transparent;box-shadow:0 2px 8px var(--shadow)}
+        .btn-primary:hover{background:linear-gradient(180deg,var(--accent),var(--accent));border-color:transparent;filter:brightness(1.08)}
+        .btn-sm{padding:6px 10px;font-size:12px;border-radius:8px}
+        .btn-sm svg{width:13px;height:13px}
+        .main{flex:1;max-width:1080px;width:100%;margin:0 auto;padding:20px;display:flex;flex-direction:column;gap:16px}
+        .tabs{display:flex;gap:8px;flex-wrap:wrap}
+        .tab{padding:8px 15px;border:1px solid var(--border);border-radius:20px;background:var(--bg2);color:var(--text);cursor:pointer;font-size:13px;font-weight:600;transition:all var(--transition);display:inline-flex;align-items:center;gap:7px}
+        .tab:hover{border-color:var(--accent);transform:translateY(-1px)}
+        .tab:active{transform:scale(.98)}
+        .tab.active{background:linear-gradient(180deg,var(--accent2),var(--accent));color:#fff;border-color:transparent;box-shadow:0 2px 10px var(--shadow)}
+        .tab svg{width:14px;height:14px}
+        .workspace{display:flex;gap:16px;align-items:flex-start}
+        .panel{flex:1;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:18px;min-width:0}
+        .panel h2{font-size:15px;margin-bottom:14px}
+        .field{margin-bottom:12px}
+        .field label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bottom:5px}
+        .field input[type=text],.field input[type=number],.field select,.field textarea{width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg3);color:var(--text);font-size:13px;outline:none}
+        .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent)}
+        .field textarea{resize:vertical;min-height:70px;font-family:inherit}
+        .row2{display:flex;gap:10px}
+        .row2 .field{flex:1}
+        .color-row{display:flex;gap:10px}
+        .color-row .field{flex:1}
+        input[type=color]{width:100%;height:38px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg3);cursor:pointer;padding:2px}
+        .checkline{display:flex;align-items:center;gap:8px;font-size:13px;margin-top:4px}
+        .preview-panel{width:360px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:12px}
+        .qr-frame{background:#fff;border-radius:12px;padding:16px;box-shadow:0 4px 16px var(--shadow)}
+        .qr-frame canvas{display:block;width:300px;height:300px}
+        .qr-info{font-size:12px;color:var(--text2);text-align:center;line-height:1.7}
+        .warn{font-size:12px;color:var(--warning);text-align:center;max-width:320px;line-height:1.6;background:rgba(210,153,34,.08);border:1px solid var(--warning);border-radius:var(--radius);padding:8px 10px}
+        .btn-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+        .status-bar{display:flex;align-items:center;justify-content:space-between;padding:8px 16px;background:var(--bg2);border-top:1px solid var(--border);font-size:12px;color:var(--text2);gap:12px;flex-wrap:wrap}
+        .status-left,.status-right{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+        .status-bar a{color:var(--text2);text-decoration:none}
+        .status-bar a:hover{color:var(--accent)}
+        .toast-container{position:fixed;top:20px;right:20px;z-index:10000;display:flex;flex-direction:column;gap:8px}
+        .toast{padding:12px 16px;border-radius:var(--radius);color:#fff;font-size:14px;animation:slideIn .3s ease;box-shadow:0 4px 12px var(--shadow);max-width:350px}
+        .toast-success{background:var(--success)}
+        .toast-error{background:var(--error)}
+        .toast-info{background:var(--accent)}
+        @keyframes slideIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+        dialog{background:var(--bg2);color:var(--text);border:1px solid var(--border);border-radius:12px;padding:24px;max-width:640px;width:calc(100vw - 40px);max-height:80vh;overflow:auto}
+        dialog::backdrop{background:rgba(0,0,0,.6)}
+        .dialog-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+        .dialog-head h2{font-size:18px;display:flex;align-items:center;gap:8px}
+        .dialog-head h2 svg{width:20px;height:20px;color:var(--accent)}
+        #aboutDialog h3{font-size:15px;margin:16px 0 8px}
+        #aboutDialog p,#aboutDialog li{font-size:14px;line-height:1.7}
+        #aboutDialog ul{padding-left:20px}
+        #aboutDialog details{margin-bottom:8px;border:1px solid var(--border);border-radius:8px;padding:8px 12px}
+        #aboutDialog summary{cursor:pointer;font-weight:600;font-size:14px}
+        ::-webkit-scrollbar{width:8px;height:8px}
+        ::-webkit-scrollbar-track{background:var(--bg)}
+        ::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+        .hidden{display:none!important}
+        .ic{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+        @media(max-width:860px){.workspace{flex-direction:column}.preview-panel{width:100%}}
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1 class="logo"><a href="#"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="3" height="3"/><rect x="18" y="18" width="3" height="3"/></svg>Qui<span>kod</span></a></h1>
+        <div class="header-actions">
+            <button class="btn btn-sm" id="aboutBtn" title="About Quikod"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>About</button>
+            <button class="btn btn-sm" id="themeToggle" title="Toggle theme"><svg class="ic" id="iconMoon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="ic hidden" id="iconSun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></button>
+        </div>
+    </header>
+    <main class="main">
+        <div class="tabs" id="tabs">
+            <button class="tab active" data-t="link"><svg class="ic" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>Link / Text</button>
+            <button class="tab" data-t="wifi"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>WiFi</button>
+            <button class="tab" data-t="vcard"><svg class="ic" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Contact</button>
+            <button class="tab" data-t="sms"><svg class="ic" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>SMS</button>
+            <button class="tab" data-t="email"><svg class="ic" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Email</button>
+            <button class="tab" data-t="phone"><svg class="ic" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Phone</button>
+        </div>
+        <div class="workspace">
+            <div class="panel">
+                <h2 id="formTitle">Link / Text</h2>
+                <div id="form-link">
+                    <div class="field"><label for="f-url">URL or text</label><textarea id="f-url" placeholder="https://example.com  (or any text)"></textarea></div>
+                </div>
+                <div id="form-wifi" class="hidden">
+                    <div class="field"><label for="f-ssid">Network name (SSID)</label><input type="text" id="f-ssid" placeholder="MyCafe_WiFi"></div>
+                    <div class="row2">
+                        <div class="field"><label for="f-wpass">Password</label><input type="text" id="f-wpass" placeholder="password123"></div>
+                        <div class="field"><label for="f-wauth">Security</label><select id="f-wauth"><option value="WPA">WPA/WPA2</option><option value="WEP">WEP</option><option value="nopass">None (open)</option></select></div>
+                    </div>
+                    <label class="checkline"><input type="checkbox" id="f-whidden"> Hidden network</label>
+                </div>
+                <div id="form-vcard" class="hidden">
+                    <div class="row2">
+                        <div class="field"><label for="f-first">First name</label><input type="text" id="f-first" placeholder="Juan"></div>
+                        <div class="field"><label for="f-last">Last name</label><input type="text" id="f-last" placeholder="Dela Cruz"></div>
+                    </div>
+                    <div class="row2">
+                        <div class="field"><label for="f-tel">Phone</label><input type="text" id="f-tel" placeholder="+639171234567"></div>
+                        <div class="field"><label for="f-mail">Email</label><input type="text" id="f-mail" placeholder="juan@example.com"></div>
+                    </div>
+                    <div class="field"><label for="f-org">Organization (optional)</label><input type="text" id="f-org" placeholder="My Shop"></div>
+                </div>
+                <div id="form-sms" class="hidden">
+                    <div class="field"><label for="f-smsnum">Phone number</label><input type="text" id="f-smsnum" placeholder="+639171234567"></div>
+                    <div class="field"><label for="f-smsmsg">Message (optional)</label><textarea id="f-smsmsg" placeholder="Hi! I saw your menu..."></textarea></div>
+                </div>
+                <div id="form-email" class="hidden">
+                    <div class="field"><label for="f-emailto">To</label><input type="text" id="f-emailto" placeholder="hello@shop.com"></div>
+                    <div class="field"><label for="f-esubject">Subject (optional)</label><input type="text" id="f-esubject" placeholder="Order inquiry"></div>
+                    <div class="field"><label for="f-ebody">Body (optional)</label><textarea id="f-ebody" placeholder="Hi, I'd like to order..."></textarea></div>
+                </div>
+                <div id="form-phone" class="hidden">
+                    <div class="field"><label for="f-phonenum">Phone number</label><input type="text" id="f-phonenum" placeholder="+639171234567"></div>
+                </div>
+                <h2 style="margin-top:18px;">Style</h2>
+                <div class="color-row">
+                    <div class="field"><label for="fgColor">Code color</label><input type="color" id="fgColor" value="#000000"></div>
+                    <div class="field"><label for="bgColor">Background</label><input type="color" id="bgColor" value="#ffffff"></div>
+                </div>
+                <div class="row2">
+                    <div class="field"><label for="ecc">Error correction</label><select id="ecc"><option value="1">Medium (default)</option><option value="0">Low (denser, smaller)</option><option value="2">Quartile</option><option value="3">High (logos + damage)</option></select></div>
+                    <div class="field"><label for="margin">Quiet zone (modules)</label><input type="number" id="margin" value="4" min="0" max="10"></div>
+                </div>
+                <div class="row2">
+                    <div class="field"><label for="expSize">Download size (px)</label><select id="expSize"><option value="512">512</option><option value="1024" selected>1024</option><option value="2048">2048</option><option value="4096">4096</option></select></div>
+                    <div class="field"><label>Logo (optional)</label><div class="row2"><button class="btn" id="logoBtn"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Upload logo</button><button class="btn hidden" id="logoClearBtn"><svg class="ic" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div><input type="file" id="logoInput" accept="image/*" hidden></div>
+                </div>
+            </div>
+            <div class="panel preview-panel">
+                <div class="qr-frame"><canvas id="qrCanvas" width="300" height="300"></canvas></div>
+                <div class="qr-info" id="qrInfo">Enter content to generate a code.</div>
+                <div class="warn hidden" id="qrWarn"></div>
+                <div class="btn-row">
+                    <button class="btn btn-primary" id="dlPngBtn"><svg class="ic" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>PNG</button>
+                    <button class="btn" id="dlSvgBtn"><svg class="ic" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>SVG</button>
+                    <button class="btn" id="copyBtn"><svg class="ic" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copy</button>
+                    <button class="btn" id="sampleBtn"><svg class="ic" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Sample</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="status-bar">
+        <div class="status-left"><span id="statusText">Static codes - scans never tracked</span></div>
+        <div class="status-right"><a href="https://github.com/glennree318-netizen/quikod/issues/new?labels=bug" target="_blank" rel="noopener">Report bug</a><a href="https://github.com/glennree318-netizen/quikod/issues/new?labels=enhancement" target="_blank" rel="noopener">Request feature</a><span>100% Client-Side</span><span>Quikod v1.0</span></div>
+    </footer>
+    <dialog id="aboutDialog">
+        <div class="dialog-head"><h2><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="3" height="3"/><rect x="18" y="18" width="3" height="3"/></svg>About Quikod</h2><button class="btn btn-sm" id="aboutClose"><svg class="ic" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Close</button></div>
+        <p><strong>Quikod</strong> is a free <strong>QR code generator</strong> for links, WiFi logins, vCards, SMS, email and phone numbers. Every code is <strong>static</strong>: the data lives inside the code itself, so scans are never tracked, codes never expire, and everything works offline. No signup, no limits, no watermark.</p>
+        <h3>Frequently asked questions</h3>
+        <details><summary>Static vs dynamic QR - what's the difference?</summary><p>Dynamic codes (sold by most generator sites) route every scan through their servers - that's how they track you and why they charge subscriptions. Static codes encode data directly. Quikod only makes static codes: private, permanent, free.</p></details>
+        <details><summary>Will my code stop working someday?</summary><p>No. Static codes can't be deactivated - there's no server to turn off. A printed Quikod code works forever.</p></details>
+        <details><summary>Why did my colored code fail to scan?</summary><p>Scanners need strong dark-on-light contrast plus a quiet white border. Quikod warns you about low contrast and enforces the quiet zone - keep the defaults and you'll be fine.</p></details>
+        <details><summary>Is my data uploaded anywhere?</summary><p>Never. Encoding runs entirely in your browser, and the app works offline after first load.</p></details>
+        <details><summary>How do I report a bug?</summary><p>Use the <strong>Report bug</strong> and <strong>Request feature</strong> links in the footer.</p></details>
+    </dialog>
+    <div class="toast-container" id="toastContainer"></div>
+    <script src="qrcodegen.js"></script>
+    <script>
+        // === Helpers ===
+        const $ = id => document.getElementById(id);
+        let template = 'link';
+        let logoImg = null;
+        let current = null; // {qr, payload, fg, bg, margin}
+
+        function showToast(message, type = 'info') {
+            const container = $('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.textContent = message;
+            container.appendChild(toast);
+            setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 300); }, 300);
+        }
+
+        // === Theme (SVG sun/moon swap - no emoji, renders everywhere) ===
+        function applyTheme(next) {
+            document.documentElement.setAttribute('data-theme', next);
+            $('iconMoon').classList.toggle('hidden', next === 'light');
+            $('iconSun').classList.toggle('hidden', next !== 'light');
+            localStorage.setItem('quikod_theme', next);
+        }
+        $('themeToggle').addEventListener('click', () => {
+            applyTheme(document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
+        });
+        applyTheme(localStorage.getItem('quikod_theme') || 'dark');
+
+        // === Analytics events (shared Umami property - filter by hostname per tool) ===
+        function trackEvent(name) {
+            try { if (window.umami && typeof umami.track === 'function') umami.track(name); } catch (e) {}
+        }
+
+        // === Templates ===
+        const TITLES = { link: 'Link / Text', wifi: 'WiFi login', vcard: 'Contact (vCard)', sms: 'SMS', email: 'Email', phone: 'Phone call' };
+        document.querySelectorAll('#tabs .tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('#tabs .tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                template = tab.dataset.t;
+                ['link', 'wifi', 'vcard', 'sms', 'email', 'phone'].forEach(t => $('form-' + t).classList.toggle('hidden', t !== template));
+                $('formTitle').textContent = TITLES[template];
+                trackEvent('view-qr-' + template);
+                scheduleRender();
+            });
+        });
+
+        function wifiEscape(s) { return s.replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/:/g, '\\:').replace(/"/g, '\\"'); }
+
+        function buildPayload() {
+            if (template === 'link') return $('f-url').value;
+            if (template === 'wifi') {
+                const ssid = wifiEscape($('f-ssid').value);
+                const pass = wifiEscape($('f-wpass').value);
+                const auth = $('f-wauth').value;
+                const hidden = $('f-whidden').checked ? 'true' : 'false';
+                if (!ssid) return '';
+                if (auth === 'nopass') return 'WIFI:T:nopass;S:' + ssid + ';H:' + hidden + ';;';
+                return 'WIFI:T:' + auth + ';S:' + ssid + ';P:' + pass + ';H:' + hidden + ';;';
+            }
+            if (template === 'vcard') {
+                const fn = ($('f-first').value + ' ' + $('f-last').value).trim();
+                if (!fn && !$('f-tel').value && !$('f-mail').value) return '';
+                let v = 'BEGIN:VCARD\nVERSION:3.0\n';
+                v += 'N:' + $('f-last').value + ';' + $('f-first').value + ';;;\n';
+                v += 'FN:' + fn + '\n';
+                if ($('f-tel').value) v += 'TEL:' + $('f-tel').value + '\n';
+                if ($('f-mail').value) v += 'EMAIL:' + $('f-mail').value + '\n';
+                if ($('f-org').value) v += 'ORG:' + $('f-org').value + '\n';
+                return v + 'END:VCARD';
+            }
+            if (template === 'sms') {
+                const num = $('f-smsnum').value.trim();
+                if (!num) return '';
+                const msg = $('f-smsmsg').value;
+                return 'SMSTO:' + num + (msg ? ':' + msg : '');
+            }
+            if (template === 'email') {
+                const to = $('f-emailto').value.trim();
+                if (!to) return '';
+                const params = [];
+                if ($('f-esubject').value) params.push('subject=' + encodeURIComponent($('f-esubject').value));
+                if ($('f-ebody').value) params.push('body=' + encodeURIComponent($('f-ebody').value));
+                return 'mailto:' + to + (params.length ? '?' + params.join('&') : '');
+            }
+            if (template === 'phone') {
+                const num = $('f-phonenum').value.trim();
+                if (!num) return '';
+                return 'tel:' + num;
+            }
+            return '';
+        }
+
+        // === Rendering ===
+        function eccLevel() {
+            const v = parseInt($('ecc').value);
+            return [qrcodegen.QrCode.Ecc.LOW, qrcodegen.QrCode.Ecc.MEDIUM, qrcodegen.QrCode.Ecc.QUARTILE, qrcodegen.QrCode.Ecc.HIGH][v] || qrcodegen.QrCode.Ecc.MEDIUM;
+        }
+
+        function luminance(hex) {
+            const c = parseInt(hex.slice(1), 16);
+            const r = (c >> 16) & 255, g = (c >> 8) & 255, b = c & 255;
+            const f = v => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
+            return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b);
+        }
+
+        function drawQR(ctx, qr, px, fg, bg, margin, logo) {
+            const n = qr.size;
+            const total = n + margin * 2;
+            const scale = px / total;
+            ctx.fillStyle = bg;
+            ctx.fillRect(0, 0, px, px);
+            ctx.fillStyle = fg;
+            for (let y = 0; y < n; y++) {
+                for (let x = 0; x < n; x++) {
+                    if (qr.getModule(x, y)) ctx.fillRect(Math.round((x + margin) * scale), Math.round((y + margin) * scale), Math.ceil(scale), Math.ceil(scale));
+                }
+            }
+            if (logo) {
+                // Logo covers ~22% of code width; quiet backing keeps modules readable
+                const lw = px * 0.22;
+                const cx = (px - lw) / 2;
+                const pad = lw * 0.12;
+                ctx.fillStyle = bg;
+                const bx = cx - pad, by = cx - pad, bs = lw + pad * 2, br = bs * 0.18;
+                ctx.beginPath();
+                ctx.roundRect ? ctx.roundRect(bx, by, bs, bs, br) : ctx.rect(bx, by, bs, bs);
+                ctx.fill();
+                ctx.drawImage(logo, cx, cx, lw, lw);
+            }
+        }
+
+        let renderTimer = null;
+        function scheduleRender() {
+            clearTimeout(renderTimer);
+            renderTimer = setTimeout(render, 150);
+        }
+
+        function render() {
+            const payload = buildPayload();
+            const warn = $('qrWarn');
+            warn.classList.add('hidden');
+            if (!payload) {
+                current = null;
+                const ctx = $('qrCanvas').getContext('2d');
+                ctx.clearRect(0, 0, 300, 300);
+                $('qrInfo').textContent = 'Enter content to generate a code.';
+                return;
+            }
+            let qr;
+            try {
+                qr = qrcodegen.QrCode.encodeText(payload, eccLevel());
+            } catch (e) {
+                current = null;
+                $('qrInfo').textContent = 'Content too long for a QR code - shorten it or lower error correction.';
+                showToast('Content too long for QR encoding', 'error');
+                return;
+            }
+            const fg = $('fgColor').value, bg = $('bgColor').value;
+            const margin = Math.min(10, Math.max(0, parseInt($('margin').value) || 0));
+            drawQR($('qrCanvas').getContext('2d'), qr, 300, fg, bg, margin, logoImg);
+            const version = (qr.size - 17) / 4;
+            const bytes = new TextEncoder().encode(payload).length;
+            current = { qr, payload, fg, bg, margin };
+            $('qrInfo').textContent = 'Version ' + version + ' | ' + qr.size + 'x' + qr.size + ' modules | ' + bytes + ' bytes | ECC ' + ['Low', 'Medium', 'Quartile', 'High'][parseInt($('ecc').value)];
+            // Scannability guardrails
+            const l1 = luminance(fg), l2 = luminance(bg);
+            const ratio = (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
+            const msgs = [];
+            if (ratio < 2.5) msgs.push('Warning: low contrast (' + ratio.toFixed(1) + ':1) - this code may fail to scan. Dark-on-light works best.');
+            else if (l1 > l2) msgs.push('Warning: inverted colors (light-on-dark) - many scanners fail on these. Prefer dark-on-light.');
+            if (margin < 4) msgs.push('Warning: quiet zone under 4 modules - scanners need the white border. Raising to 4 recommended.');
+            if (msgs.length) { warn.textContent = msgs.join(' '); warn.classList.remove('hidden'); }
+        }
+
+        ['f-url', 'f-ssid', 'f-wpass', 'f-first', 'f-last', 'f-tel', 'f-mail', 'f-org', 'f-smsnum', 'f-smsmsg', 'f-emailto', 'f-esubject', 'f-ebody', 'f-phonenum'].forEach(id => $(id).addEventListener('input', scheduleRender));
+        ['f-wauth', 'f-whidden', 'ecc', 'margin', 'fgColor', 'bgColor'].forEach(id => $(id).addEventListener('input', scheduleRender));
+        $('ecc').addEventListener('change', () => trackEvent('qr-ecc-' + $('ecc').value));
+
+        // === Logo ===
+        $('logoBtn').addEventListener('click', () => $('logoInput').click());
+        $('logoInput').addEventListener('change', () => {
+            const f = $('logoInput').files[0];
+            $('logoInput').value = '';
+            if (!f) return;
+            const url = URL.createObjectURL(f);
+            const img = new Image();
+            img.onload = () => {
+                logoImg = img;
+                $('logoClearBtn').classList.remove('hidden');
+                if (parseInt($('ecc').value) < 2) {
+                    $('ecc').value = '2';
+                    showToast('Error correction raised to Quartile for logo safety', 'info');
+                }
+                trackEvent('action-qr-logo');
+                showToast('Logo added', 'success');
+                render();
+            };
+            img.onerror = () => { URL.revokeObjectURL(url); showToast('Cannot read that image', 'error'); };
+            img.src = url;
+        });
+        $('logoClearBtn').addEventListener('click', () => {
+            logoImg = null;
+            $('logoClearBtn').classList.add('hidden');
+            render();
+        });
+
+        // === Export ===
+        function exportCanvas() {
+            if (!current) { showToast('Nothing to export yet', 'error'); return null; }
+            const size = parseInt($('expSize').value);
+            const c = document.createElement('canvas');
+            c.width = c.height = size;
+            drawQR(c.getContext('2d'), current.qr, size, current.fg, current.bg, current.margin, logoImg);
+            return c;
+        }
+
+        function downloadBlob(blob, name) {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = name;
+            a.click();
+            setTimeout(() => URL.revokeObjectURL(url), 5000);
+        }
+
+        $('dlPngBtn').addEventListener('click', () => {
+            const c = exportCanvas();
+            if (!c) return;
+            c.toBlob((blob) => {
+                if (!blob) { showToast('PNG export failed', 'error'); return; }
+                downloadBlob(blob, 'quikod-qr.png');
+                trackEvent('action-qr-png');
+                showToast('PNG downloaded', 'success');
+            }, 'image/png');
+        });
+
+        $('dlSvgBtn').addEventListener('click', () => {
+            if (!current) { showToast('Nothing to export yet', 'error'); return; }
+            const { qr, fg, bg, margin } = current;
+            const n = qr.size, total = n + margin * 2;
+            let d = '';
+            for (let y = 0; y < n; y++) {
+                for (let x = 0; x < n; x++) {
+                    if (qr.getModule(x, y)) d += 'M' + (x + margin) + ',' + (y + margin) + 'h1v1h-1z';
+                }
+            }
+            const svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + total + ' ' + total + '"><rect width="' + total + '" height="' + total + '" fill="' + bg + '"/><path d="' + d + '" fill="' + fg + '"/></svg>';
+            downloadBlob(new Blob([svg], { type: 'image/svg+xml' }), 'quikod-qr.svg');
+            trackEvent('action-qr-svg');
+            showToast('SVG downloaded', 'success');
+        });
+
+        $('copyBtn').addEventListener('click', () => {
+            const c = exportCanvas();
+            if (!c) return;
+            c.toBlob(async (blob) => {
+                if (!blob) { showToast('Copy failed', 'error'); return; }
+                try {
+                    await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+                    trackEvent('action-qr-copy');
+                    showToast('Copied to clipboard', 'success');
+                } catch (e) {
+                    showToast('Clipboard blocked by browser', 'error');
+                }
+            }, 'image/png');
+        });
+
+        $('sampleBtn').addEventListener('click', () => {
+            document.querySelector('#tabs .tab[data-t="link"]').click();
+            $('f-url').value = 'https://quikod.vercel.app/';
+            trackEvent('action-qr-sample');
+            render();
+        });
+
+        // === About dialog ===
+        $('aboutBtn').addEventListener('click', () => $('aboutDialog').showModal());
+        $('aboutClose').addEventListener('click', () => $('aboutDialog').close());
+        $('aboutDialog').addEventListener('click', (e) => {
+            if (e.target === $('aboutDialog')) $('aboutDialog').close();
+        });
+
+        // === Init ===
+        render();
+        if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+            navigator.serviceWorker.register('sw.js').catch(() => {});
+        }
+    </script>
+</body>
+</html>
