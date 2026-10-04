@@ -20,7 +20,21 @@
     <meta name="theme-color" content="#0d1117">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="icon.svg">
-    <script defer src="https://cloud.umami.is/script.js" data-website-id="753da090-5ac6-475f-9ab5-ca0be8eb1316"></script>
+<script>
+    /* Analytics runs on production hostnames only.
+       Excludes Vercel preview deployments (which also contain "vercel.app"),
+       localhost, file:// and the GitHub Pages mirrors, so none of them
+       inflate the numbers. Keep PROD in sync when adding a new tool. */
+    (function () {
+      var PROD = ["jsonnook.vercel.app","compact-pic.vercel.app","quikod.vercel.app","dyemill.vercel.app","redactnook.vercel.app","payload-prism.vercel.app","serpnook.vercel.app"];
+      if (PROD.indexOf(location.hostname) === -1) return;
+      var s = document.createElement("script");
+      s.defer = true;
+      s.src = "https://cloud.umami.is/script.js";
+      s.setAttribute("data-website-id", "753da090-5ac6-475f-9ab5-ca0be8eb1316");
+      document.head.appendChild(s);
+    })();
+    </script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
