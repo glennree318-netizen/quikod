@@ -1,7 +1,7 @@
 # ⚡ Quikod — Free QR Code Generator
 
-Quik codes for links, text, WiFi, vCards, SMS, email and phone.
-**Static, private, client-side. No signup. No tracking. Codes never expire.**
+QR codes for links, text, WiFi, vCards, SMS, email and phone.
+**Static, client-side. No signup. No account. Scans never tracked. Codes never expire.**
 Free forever.
 
 ## ✨ Features
@@ -17,8 +17,14 @@ Free forever.
 ## 🔒 Privacy
 
 QR encoding runs 100% in your browser (vendored public-domain
-`qrcodegen` engine — no CDN, no server). Static codes: scans never
+`qrcodegen` engine - no CDN, no server). Static codes: scans never
 phone home, codes work even if this site disappears.
+
+Stated plainly rather than as a slogan: the page loads a small cookieless
+analytics script (Umami) on the production hostname only, to count visits.
+It sets no cookies, builds no profile, and never sees your QR content,
+because the code is generated on your machine. Load the page once and use
+it offline and nothing is sent at all.
 
 ## 🚀 Run it
 
