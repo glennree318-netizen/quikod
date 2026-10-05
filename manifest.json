@@ -1,7 +1,7 @@
 {
-  "name": "Quikod — Free QR Code Generator",
+  "name": "Quikod - Free QR Code Generator",
   "short_name": "Quikod",
-  "description": "Free QR codes for links, WiFi, vCards and more. Static, private, no signup, no tracking. Works offline.",
+  "description": "Free QR codes for links, WiFi, vCards and more. Static, private, no signup, no account. Works offline.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
@@ -13,6 +13,18 @@
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
